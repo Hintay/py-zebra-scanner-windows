@@ -1,4 +1,4 @@
-# Python Zebra Scanner for Windows
+# Zebra Scanner Python Extension for Windows
 This is Windows version of Zebra Scanner python extension. 
 
 For the original Linux version, see https://github.com/dayjaby/zebra-scanner
@@ -6,6 +6,7 @@ For the original Linux version, see https://github.com/dayjaby/zebra-scanner
 ### Built With
 
 - [{fmt}](https://github.com/fmtlib/fmt)
+- [pugixml](https://github.com/zeux/pugixml)
 - [Magic Enum C++](https://github.com/Neargye/magic_enum) (Optional, for barcode types)
 
 ## Supported boards
