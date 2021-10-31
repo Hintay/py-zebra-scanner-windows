@@ -1,0 +1,130 @@
+// Generated .IDL file (by the OLE/COM Object Viewer)
+// 
+// typelib filename: CoreScanner.exe
+
+[
+  uuid(DB07B9FC-18B0-4B55-9A44-31D2C2F87875),
+  version(1.0),
+  helpstring("CoreScanner 1.0 Type Library"),
+  custom(DE77BA64-517C-11D1-A2DA-0000F8773CE9, 134283886),
+  custom(DE77BA63-517C-11D1-A2DA-0000F8773CE9, 2147483647),
+  custom(DE77BA65-517C-11D1-A2DA-0000F8773CE9, "Created by MIDL version 8.01.0622 at Tue Jan 19 08:44:07 2038
+")
+
+]
+library CoreScanner
+{
+    // TLib : OLE Automation : {00020430-0000-0000-C000-000000000046}
+    importlib("stdole2.tlb");
+
+    // Forward declare all types defined in this typelib
+    dispinterface _ICoreScannerEvents;
+    interface ICoreScanner;
+
+    [
+      uuid(981E3D8B-C756-4195-A702-F198965031C6),
+      helpstring("_ICoreScannerEvents Interface")
+    ]
+    dispinterface _ICoreScannerEvents {
+        properties:
+        methods:
+            [id(0x00000001), source, helpstring("method ImageEvent")]
+            HRESULT ImageEvent(
+                            [in] short eventType, 
+                            [in] long size, 
+                            [in] short imageFormat, 
+                            [in] VARIANT* sfImageData, 
+                            [in] BSTR* pScannerData);
+            [id(0x00000002), source, helpstring("method VideoEvent")]
+            HRESULT VideoEvent(
+                            [in] short eventType, 
+                            [in] long size, 
+                            [in] VARIANT* sfvideoData, 
+                            [in] BSTR* pScannerData);
+            [id(0x00000003), source, helpstring("method BarcodeEvent")]
+            HRESULT BarcodeEvent(
+                            [in] short eventType, 
+                            [in] BSTR* pscanData);
+            [id(0x00000004), source, helpstring("method PNPEvent")]
+            HRESULT PNPEvent(
+                            [in] short eventType, 
+                            [in] BSTR* ppnpData);
+            [id(0x00000005), source, helpstring("method CommandResponseEvent")]
+            HRESULT CommandResponseEvent(
+                            [in] short status, 
+                            [in] BSTR* prspData);
+            [id(0x00000006), source, helpstring("method ScanRMDEvent")]
+            HRESULT ScanRMDEvent(
+                            [in] short eventType, 
+                            [in] BSTR* prmdData);
+            [id(0x00000007), source, helpstring("method IOEvent")]
+            HRESULT IOEvent(
+                            [in] short type, 
+                            [in] unsigned char data);
+            [id(0x00000008), source, helpstring("method ScannerNotificationEvent")]
+            HRESULT ScannerNotificationEvent(
+                            [in] short notificationType, 
+                            [in] BSTR* pScannerData);
+            [id(0x00000009), source, helpstring("method BinaryDataEvent")]
+            HRESULT BinaryDataEvent(
+                            [in] short eventType, 
+                            [in] long size, 
+                            [in] short sDataFormat, 
+                            [in] VARIANT* sfBinaryData, 
+                            [in] BSTR* pScannerData);
+            [id(0x0000000a), source, helpstring("method ParameterBarcode")]
+            HRESULT ParameterBarcode(
+                            [in] short eventType, 
+                            [in] long size, 
+                            [in] short imageFormat, 
+                            [in] VARIANT* sfImageData, 
+                            [in] BSTR* pData);
+    };
+
+    [
+      uuid(9F8D4F16-0F61-4A38-98B3-1F6F80F11C87),
+      version(1.0),
+      helpstring("CCoreScanner Class")
+    ]
+    coclass CCoreScanner {
+        [default] interface ICoreScanner;
+        [default, source] dispinterface _ICoreScannerEvents;
+    };
+
+    [
+      odl,
+      uuid(2105896C-2B38-4031-BD0B-7A9C4A39FB93),
+      helpstring("ICoreScanner Interface"),
+      dual,
+      oleautomation
+    ]
+    interface ICoreScanner : IDispatch {
+        [id(0x00000001), helpstring("method Open")]
+        HRESULT Open(
+                        [in] long appHandle, 
+                        [in] SAFEARRAY(short) sfTypes, 
+                        [in] short lengthOfTypes, 
+                        [out] long* status);
+        [id(0x00000002), helpstring("method Close")]
+        HRESULT Close(
+                        [in] long appHandle, 
+                        [out] long* status);
+        [id(0x00000003), helpstring("method GetScanners")]
+        HRESULT GetScanners(
+                        [out] short* numberOfScanners, 
+                        [in, out] SAFEARRAY(int) sfScannerIDList, 
+                        [out] BSTR* outXML, 
+                        [out] long* status);
+        [id(0x00000004), helpstring("method ExecCommand")]
+        HRESULT ExecCommand(
+                        [in] long opcode, 
+                        [in] BSTR* inXML, 
+                        [out] BSTR* outXML, 
+                        [out] long* status);
+        [id(0x00000005), helpstring("method ExecCommandAsync")]
+        HRESULT ExecCommandAsync(
+                        [in] long opcode, 
+                        [in] BSTR* inXML, 
+                        [out] long* status);
+    };
+};

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{627ec230-7520-456a-9c2d-3cde255afeb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\fmt">
+      <UniqueIdentifier>{4d1139a5-6261-40ba-a594-76711780fb13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib">
+      <UniqueIdentifier>{5a9fdffc-8c65-4f4c-953c-f72d754f0b66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\plugixml">
+      <UniqueIdentifier>{20dc3d05-e195-425b-93ff-54f7cdfd6775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\plugixml">
+      <UniqueIdentifier>{6589e531-208d-4882-b595-e846f09e8f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\fmt">
+      <UniqueIdentifier>{afbf8ff7-eecc-4975-a934-d265e59bbf42}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="zebra_scanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="event_sink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\fmt\format.cc">
+      <Filter>lib\fmt</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\plugixml\pugixml.cpp">
+      <Filter>lib\plugixml</Filter>
+    </ClCompile>
+    <ClCompile Include="barcode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="attribute.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\pugiconfig.hpp">
+      <Filter>Header Files\lib\plugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pugixml.hpp">
+      <Filter>Header Files\lib\plugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="include\magic_enum.hpp">
+      <Filter>Header Files\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\compile.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\core.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\format.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\format-inl.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\locale.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\os.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\ostream.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\printf.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\ranges.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\xchar.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\args.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\chrono.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fmt\color.h">
+      <Filter>Header Files\lib\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="include\attribute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\barcode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\call_python.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common_defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_bridge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\event_sink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\scanner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\zebra_scanner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="_CoreScanner.idl">
+      <Filter>Source Files</Filter>
+    </Midl>
+  </ItemGroup>
+</Project>
