@@ -152,7 +152,6 @@
       <PreprocessorDefinitions>_WINDLL;PUGIXML_WCHAR_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -191,7 +190,6 @@
       <PreprocessorDefinitions>_WINDLL;PUGIXML_WCHAR_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -207,7 +205,7 @@
     <ClCompile Include="barcode.cpp" />
     <ClCompile Include="event_sink.cpp" />
     <ClCompile Include="lib\fmt\format.cc" />
-    <ClCompile Include="lib\plugixml\pugixml.cpp" />
+    <ClCompile Include="lib\pugixml\pugixml.cpp" />
     <ClCompile Include="scanner.cpp" />
     <ClCompile Include="zebra_scanner.cpp" />
   </ItemGroup>

@@ -25,11 +25,11 @@
     <Filter Include="Header Files\lib\plugixml">
       <UniqueIdentifier>{20dc3d05-e195-425b-93ff-54f7cdfd6775}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\plugixml">
-      <UniqueIdentifier>{6589e531-208d-4882-b595-e846f09e8f09}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\lib\fmt">
       <UniqueIdentifier>{afbf8ff7-eecc-4975-a934-d265e59bbf42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pugixml">
+      <UniqueIdentifier>{6589e531-208d-4882-b595-e846f09e8f09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,9 +42,6 @@
     <ClCompile Include="lib\fmt\format.cc">
       <Filter>lib\fmt</Filter>
     </ClCompile>
-    <ClCompile Include="lib\plugixml\pugixml.cpp">
-      <Filter>lib\plugixml</Filter>
-    </ClCompile>
     <ClCompile Include="barcode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -53,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="attribute.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\pugixml\pugixml.cpp">
+      <Filter>lib\pugixml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
