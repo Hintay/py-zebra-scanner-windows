@@ -1,13 +1,15 @@
 #pragma once
+#include <atlbase.h>
+
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
-
 #include <pybind11/pybind11.h>
 
 #include "common_defs.h"
-#include "_CoreScanner_h.h"
+
+#import "libid:DB07B9FC-18B0-4B55-9A44-31D2C2F87875" no_namespace named_guids
 
 class Attribute;
 namespace py = pybind11;
@@ -15,7 +17,7 @@ namespace py = pybind11;
 class Scanner final
 {
 public:
-	explicit Scanner(ICoreScanner* scanner_interface): scanner_interface_(scanner_interface) {}
+	explicit Scanner(CComQIPtr<ICoreScanner> scanner_interface): scanner_interface_(scanner_interface) {}
 
 	std::wstring type_;
 	int scanner_id_ = -1;
@@ -45,11 +47,12 @@ public:
 	std::vector<std::shared_ptr<Attribute>> FetchAttributes(const std::vector<int>&);
 	std::vector<std::shared_ptr<Attribute>> FetchAttributes(const std::wstring&);
 
-	void Scanner::TrimProperties();
-
 	void OnBarcodeDecorator(const py::object& obj);
 	void OnBarcode(py::object& obj);
+
+	void TrimProperties();
 	std::vector<py::object> on_barcode_;
-private:
-	ICoreScanner* scanner_interface_;
+
+protected:
+	CComQIPtr<ICoreScanner> scanner_interface_;
 };

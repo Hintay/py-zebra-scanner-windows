@@ -1,6 +1,5 @@
 #include "zebra_scanner.h"
 
-#include <sstream>
 #include <atlsafe.h>
 #include <locale>
 #include <fmt/core.h>
@@ -111,20 +110,15 @@ PYBIND11_MODULE(zebra_scanner, m)
 CoreScanner::CoreScanner()
 {
 	PyEval_InitThreads();
-
 	// Create the CoreScanner COM object
-	const HRESULT hr = CoCreateInstance(CLSID_CCoreScanner, nullptr, CLSCTX_ALL, IID_ICoreScanner, reinterpret_cast<void**>(&scanner_interface_));
-	if FAILED(hr)
+	const HRESULT hr = scanner_interface_.CoCreateInstance(CLSID_CCoreScanner);
+	if(FAILED(hr))
 		throw runtime_error("Failed to create CoreScanner COM object.");
 
-	if (scanner_interface_)
-	{
-		// Create an instance of the sink object to sink Core Scanner Events
-		scanner_event_sink_ = new EventSink(this);
-		scanner_event_sink_unknown_ = scanner_event_sink_->GetIDispatch(FALSE);
-		// Advice or make a connection
-		AfxConnectionAdvise(scanner_interface_, DIID__ICoreScannerEvents, scanner_event_sink_unknown_, FALSE, &dw_cookie_);
-	}
+	// Create an instance of the sink object to sink Core Scanner Events
+	scanner_event_sink_ = std::make_unique<EventSink>(this);
+	// Advice or make a connection
+	scanner_event_sink_->DispEventAdvise(scanner_interface_);
 }
 
 CoreScanner::~CoreScanner()
@@ -137,40 +131,17 @@ CoreScanner::~CoreScanner()
 		}
 		catch (...) {}
 	}
-	DestroyInstance();
-}
-
-void CoreScanner::DestroyInstance()
-{
-	/*** If ever the CoreScanner Service becomes unresponsive when the application is
-	closed, a STATUS_ACCESS_VIOLATION is raised on this thread which is handled
-	by a Win32 exception handler. - VRQW74
-	***/
-	_try
-	{
-		if (scanner_interface_)
-		{
-			if (dw_cookie_ != 0 && scanner_event_sink_)
-			{
-				AfxConnectionUnadvise(scanner_interface_, DIID__ICoreScannerEvents, scanner_event_sink_unknown_,
-				                      FALSE, dw_cookie_);
-				delete scanner_event_sink_;
-				scanner_event_sink_ = nullptr;
-				dw_cookie_ = 0;
-			}
-			scanner_interface_->Release();
-			scanner_interface_ = nullptr;
-		}
-	}
-	__except (EXCEPTION_EXECUTE_HANDLER)
-	{
-	}
+	if (scanner_event_sink_->m_dwEventCookie != 0)
+		scanner_event_sink_->DispEventUnadvise(scanner_interface_);
+	scanner_interface_.Release();
 }
 
 void CoreScanner::Open()
 {
-	long status = 1;
+	if (is_open_)
+		throw runtime_error("The CoreScanner already opened.");
 
+	long status = 1;
 	CComSafeArray<SHORT> types(1);
 	types[0] = SCANNER_TYPES_ALL;
 

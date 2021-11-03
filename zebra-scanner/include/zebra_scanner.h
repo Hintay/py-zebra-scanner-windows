@@ -4,11 +4,11 @@
 #include <map>
 #include <pugixml.hpp>
 
-#include "_CoreScanner_h.h"
-
 #include <pybind11/pybind11.h>
 #include <pybind11/pytypes.h>
 #include <pybind11/stl.h>
+
+#import "libid:DB07B9FC-18B0-4B55-9A44-31D2C2F87875" no_namespace named_guids
 
 
 class Scanner;
@@ -19,8 +19,8 @@ class CoreScanner final : public EventBridge
 public:
 	explicit CoreScanner();
 	virtual ~CoreScanner();
-	CoreScanner(const CoreScanner&) = default;
-	CoreScanner& operator=(const CoreScanner&) = default;
+	CoreScanner(const CoreScanner&) = delete;
+	CoreScanner& operator=(const CoreScanner&) = delete;
 	CoreScanner(CoreScanner&&) = default;
 	CoreScanner& operator=(CoreScanner&&) = default;
 
@@ -55,13 +55,7 @@ public:
 
 	bool is_open_ = false;
 
-private:
-	void DestroyInstance();
-
-	ICoreScanner* scanner_interface_ = nullptr;
-	py::object logger_;
-
-	DWORD dw_cookie_{};
-	EventSink* scanner_event_sink_ = nullptr;
-	LPUNKNOWN scanner_event_sink_unknown_ =nullptr;
+protected:
+	CComQIPtr<ICoreScanner> scanner_interface_;
+	std::unique_ptr<EventSink> scanner_event_sink_;
 };

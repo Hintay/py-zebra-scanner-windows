@@ -1,4 +1,3 @@
-#include <atlcomcli.h>
 #include "attribute.h"
 #include "scanner.h"
 

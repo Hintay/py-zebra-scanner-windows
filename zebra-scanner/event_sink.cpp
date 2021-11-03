@@ -1,66 +1,44 @@
 #include "event_sink.h"
 
-#include "_CoreScanner_i.c"
+#include <atlsafe.h>
 #include <iostream>
-#include <string>
-#include "afxdisp.h"  // MFC Automation classes
+
+#import "libid:DB07B9FC-18B0-4B55-9A44-31D2C2F87875" no_namespace named_guids
 
 using namespace std;
-EventSink * ScannerEventSink;
-IMPLEMENT_DYNAMIC(EventSink, CCmdTarget)
 
-/**
-* Event sink constructor
-**/
-EventSink::EventSink(): bridge_(nullptr)
-{
-    EnableAutomation();
-}
+_ATL_FUNC_INFO OnImageEventInfo = { CC_STDCALL, VT_EMPTY, 5,
+    {VT_I2, VT_I4, VT_I2, VT_VARIANT | VT_BYREF, VT_BSTR | VT_BYREF} };
+_ATL_FUNC_INFO OnVideoEventInfo = { CC_STDCALL, VT_EMPTY, 4,
+    {VT_I2, VT_I4, VT_VARIANT | VT_BYREF, VT_BSTR | VT_BYREF} };
+_ATL_FUNC_INFO OnBarcodeEventInfo = { CC_STDCALL, VT_EMPTY, 2,
+    {VT_I2, VT_BSTR | VT_BYREF} };
+_ATL_FUNC_INFO OnPNPEventInfo = { CC_STDCALL, VT_EMPTY, 2,
+    {VT_I2, VT_BSTR | VT_BYREF} };
+_ATL_FUNC_INFO OnCommandResponseEventInfo = { CC_STDCALL, VT_EMPTY, 2,
+    {VT_I2, VT_BSTR | VT_BYREF} };
+_ATL_FUNC_INFO OnScanRMDEventInfo = { CC_STDCALL, VT_EMPTY, 2,
+    {VT_I2, VT_BSTR | VT_BYREF} };
+_ATL_FUNC_INFO OnIOEventInfo = { CC_STDCALL, VT_EMPTY, 2,
+    {VT_I2, VT_UI1} };
+_ATL_FUNC_INFO OnScannerNotificationEventInfo = { CC_STDCALL, VT_EMPTY, 2,
+    {VT_I2, VT_BSTR | VT_BYREF} };
+_ATL_FUNC_INFO OnBinaryDataEventInfo = { CC_STDCALL, VT_EMPTY, 5,
+    {VT_I2, VT_I4, VT_I2, VT_VARIANT | VT_BYREF, VT_BSTR | VT_BYREF} };
+_ATL_FUNC_INFO OnParameterBarcodeEventInfo = { CC_STDCALL, VT_EMPTY, 5,
+    {VT_I2, VT_I4, VT_I2, VT_VARIANT | VT_BYREF, VT_BSTR | VT_BYREF} };
 
-EventSink::EventSink(EventBridge* p_event_bridge)
-{
-    bridge_ = p_event_bridge;
-    EnableAutomation();
-}
-
-/**
-* virtual function called when last OLE reference is released
-*/
-void EventSink::OnFinalRelease()
-{
-    CCmdTarget::OnFinalRelease();
-}
-
-BEGIN_MESSAGE_MAP(EventSink, CCmdTarget)
-END_MESSAGE_MAP()
-
-BEGIN_DISPATCH_MAP(EventSink, CCmdTarget)
-    DISP_FUNCTION_ID(EventSink, "ImageEvent", 1, OnImageEvent, VT_EMPTY, VTS_I2 VTS_I4 VTS_I2 VTS_PVARIANT VTS_BSTR)
-    DISP_FUNCTION_ID(EventSink, "VideoEvent", 2, OnVideoEvent, VT_EMPTY, VTS_I2 VTS_I4 VTS_PVARIANT VTS_BSTR)
-    DISP_FUNCTION_ID(EventSink, "BarcodeEvent", 3, OnBarcodeEvent, VT_EMPTY, VTS_I2 VTS_BSTR)
-    DISP_FUNCTION_ID(EventSink, "PNPEvent", 4, OnPNPEvent, VT_EMPTY, VTS_I2 VTS_BSTR)
-    DISP_FUNCTION_ID(EventSink, "CommandResponseEvent", 5, OnCommandResponseEvent, VT_EMPTY, VTS_I2 VTS_BSTR)
-    DISP_FUNCTION_ID(EventSink, "ScanRMDEvent", 6, OnScanRMDEvent, VT_EMPTY, VTS_I2 VTS_BSTR)
-    DISP_FUNCTION_ID(EventSink, "IOEvent", 7, OnIOEvent, VT_EMPTY, VTS_I2 VTS_UI1)
-    DISP_FUNCTION_ID(EventSink, "ScannerNotificationEvent", 8, OnScannerNotificationEvent, VT_EMPTY, VTS_I2 VTS_BSTR)
-    DISP_FUNCTION_ID(EventSink, "BinaryDataEvent", 9, OnBinaryDataEvent, VT_EMPTY, VTS_I2 VTS_I4 VTS_I2 VTS_PVARIANT VTS_BSTR)
-    DISP_FUNCTION_ID(EventSink, "ParameterBarcodeEvent", 10, OnParameterBarcodeEvent, VT_EMPTY, VTS_I2 VTS_I4 VTS_I2 VTS_PVARIANT VTS_BSTR)
-END_DISPATCH_MAP()
-
-BEGIN_INTERFACE_MAP(EventSink, CCmdTarget)
-    INTERFACE_PART(EventSink, DIID__ICoreScannerEvents, Dispatch)
-END_INTERFACE_MAP()
 
 /**
 * Image event handler
 **/
 void EventSink::OnImageEvent(short eventType, long size, short imageFormat, VARIANT* sfImageData, BSTR* pScannerData)
 {
-    LPBYTE MediaBuffer;
+    LPBYTE media_buffer;
     SAFEARRAY* psa = sfImageData->parray;
-    HRESULT hr = SafeArrayAccessData(psa, reinterpret_cast<void**>(&MediaBuffer));
+    HRESULT hr = SafeArrayAccessData(psa, reinterpret_cast<void**>(&media_buffer));
     hr = SafeArrayUnaccessData(psa);
-    bridge_->OnImageEvent(MediaBuffer, size);
+    bridge_->OnImageEvent(media_buffer, size);
 }
 
 /**
@@ -68,43 +46,43 @@ void EventSink::OnImageEvent(short eventType, long size, short imageFormat, VARI
 **/
 void EventSink::OnVideoEvent(short eventType, long size, VARIANT* sfvideoData, BSTR* pScannerData)
 {
-    LPBYTE MediaBuffer;
+    LPBYTE media_buffer;
     SAFEARRAY* psa = sfvideoData->parray;
-    HRESULT hr = SafeArrayAccessData(psa, reinterpret_cast<void**>(&MediaBuffer));
+    HRESULT hr = SafeArrayAccessData(psa, reinterpret_cast<void**>(&media_buffer));
     hr = SafeArrayUnaccessData(psa);
-    bridge_->OnVideoEvent(MediaBuffer, size);
+    bridge_->OnVideoEvent(media_buffer, size);
 }
 
 /**
 * Barcode data event handler
 **/
-void EventSink::OnBarcodeEvent(short eventType, BSTR pscanData)
+void EventSink::OnBarcodeEvent(short eventType, BSTR* pscanData)
 {
-    bridge_->OnBarcodeEvent(eventType, pscanData);
+    bridge_->OnBarcodeEvent(eventType, *pscanData);
 }
 
 /**
 * PNP event handler
 **/
-void EventSink::OnPNPEvent(short eventType, BSTR ppnpData)
+void EventSink::OnPNPEvent(short eventType, BSTR* ppnpData)
 {
-    bridge_->OnPNPEvent(eventType, ppnpData);
+    bridge_->OnPNPEvent(eventType, *ppnpData);
 }
 
 /**
 * Response event handler
 **/
-void EventSink::OnCommandResponseEvent(short status, BSTR prspData)
+void EventSink::OnCommandResponseEvent(short status, BSTR* prspData)
 {
-    bridge_->OnCommandResponseEvent(status, prspData);
+    bridge_->OnCommandResponseEvent(status, *prspData);
 }
 
 /**
 * RMD event handler
 **/
-void EventSink::OnScanRMDEvent(short eventType, BSTR prmdData)
+void EventSink::OnScanRMDEvent(short eventType, BSTR* prmdData)
 {
-    bridge_->OnScanRMDEvent(eventType, prmdData);
+    bridge_->OnScanRMDEvent(eventType, *prmdData);
 }
 
 /**
@@ -118,9 +96,9 @@ void EventSink::OnIOEvent(short type, unsigned char data)
 /**
 * Scanner notification event handler
 **/
-void EventSink::OnScannerNotificationEvent(short notificationType, BSTR pScannerData)
+void EventSink::OnScannerNotificationEvent(short notificationType, BSTR* pScannerData)
 {
-    bridge_->OnScannerNotificationEvent(notificationType, pScannerData);
+    bridge_->OnScannerNotificationEvent(notificationType, *pScannerData);
 }
 
 /**
@@ -128,18 +106,18 @@ void EventSink::OnScannerNotificationEvent(short notificationType, BSTR pScanner
 **/
 void EventSink::OnBinaryDataEvent(short eventType, long size, short sDataFormat, VARIANT* sfBinaryData, BSTR* pScannerData)
 {
-    LPBYTE BinaryBuffer;
+    LPBYTE binary_buffer;
     SAFEARRAY* psa = sfBinaryData->parray;
-    HRESULT hr = SafeArrayAccessData(psa, reinterpret_cast<void**>(&BinaryBuffer));
+    HRESULT hr = SafeArrayAccessData(psa, reinterpret_cast<void**>(&binary_buffer));
     hr = SafeArrayUnaccessData(psa);
-    bridge_->OnBinaryDataEvent(BinaryBuffer, size, sDataFormat, pScannerData);
+    bridge_->OnBinaryDataEvent(binary_buffer, size, sDataFormat, pScannerData);
 }
 
 void EventSink::OnParameterBarcodeEvent(short eventType, long size, short imageFormat, VARIANT* sfImageData, BSTR* pData)
 {
-    LPBYTE BarcodeBuffer;
+    LPBYTE barcode_buffer;
     SAFEARRAY* psa = sfImageData->parray;
-    HRESULT hr = SafeArrayAccessData(psa, reinterpret_cast<void**>(&BarcodeBuffer));
+    HRESULT hr = SafeArrayAccessData(psa, reinterpret_cast<void**>(&barcode_buffer));
     hr = SafeArrayUnaccessData(psa);
-    bridge_->OnParameterBarcodeEvent(BarcodeBuffer, size);
+    bridge_->OnParameterBarcodeEvent(barcode_buffer, size);
 }

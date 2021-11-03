@@ -1,10 +1,7 @@
-#include <atlcomcli.h>
 #include "scanner.h"
 #include "attribute.h"
 #include "call_python.h"
 #include "pugixml.hpp"
-
-#include "_CoreScanner_h.h"
 
 using namespace std;
 
