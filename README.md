@@ -72,13 +72,13 @@ The run result masks the serial number and GUID.
 
 ```
 > python zebra_test.py
-New scanner found: Scanner(type='SNAPI', scannerID=1, serialnumber='21064010xxxxxx', GUID='358929B1EDF24E0180A0C181xxxxxxxx', PID='6400', modelnumber='1504', DoM='DS8108-SR00007ZZCN', firmware='05MAR21')
+New scanner found: Scanner(type='SNAPI', scannerID=1, serialnumber='21064010xxxxxx', GUID='358929B1EDF24E0180A0C181xxxxxxxx', PID='6400', VID='1504', modelnumber='DS8108-SR00007ZZCN', DoM='05MAR21', firmware='PAACZS00-006-R02')
 
 [Attribute(id=20004, permission='R', datatype='S', value='PAACZS00-006-R02  '), Attribute(id=535, permission='R', datatype='S', value='05MAR21')]
 
 Scanned: Barcode(code='4974365862466', type='11', symbology='EAN-13')
 
-Scanner removed: Scanner(type='SNAPI', scannerID=1, serialnumber='21064010xxxxxx', GUID='358929B1EDF24E0180A0C181xxxxxxxx', PID='6400', modelnumber='1504', DoM='DS8108-SR00007ZZCN', firmware='05MAR21')
+Scanner removed: Scanner(type='SNAPI', scannerID=1, serialnumber='21064010xxxxxx', GUID='358929B1EDF24E0180A0C181xxxxxxxx', PID='6400', VID='1504', modelnumber='DS8108-SR00007ZZCN', DoM='05MAR21', firmware='PAACZS00-006-R02')
 ```
 
 ## About

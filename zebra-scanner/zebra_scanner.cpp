@@ -56,18 +56,18 @@ PYBIND11_MODULE(zebra_scanner, m)
 		.def_readonly("attributes", &Scanner::attributes_)
 		.def_readonly("type", &Scanner::type_)
 		.def_readonly("scannerID", &Scanner::scanner_id_)
+		.def_readonly("modelnumber", &Scanner::model_number_)
 		.def_readonly("serialnumber", &Scanner::serial_number_)
 		.def_readonly("GUID", &Scanner::guid_)
-		.def_readonly("PID", &Scanner::pid_)
 		.def_readonly("VID", &Scanner::vid_)
-		.def_readonly("modelnumber", &Scanner::model_number_)
+		.def_readonly("PID", &Scanner::pid_)
 		.def_readonly("DoM", &Scanner::dom_)
 		.def_readonly("firmware", &Scanner::firmware_)
 		.def("__repr__",
 			[](const Scanner& a) {
 				return fmt::format(
-					L"Scanner(type='{}', scannerID={}, serialnumber='{}', GUID='{}', PID='{}', modelnumber='{}', DoM='{}', firmware='{}')",
-					a.type_, a.scanner_id_, a.serial_number_, a.guid_, a.pid_, a.vid_, a.model_number_, a.dom_, a.firmware_
+					L"Scanner(type='{}', scannerID={}, modelnumber='{}', serialnumber='{}', GUID='{}', VID='{}', PID='{}', DoM='{}', firmware='{}')",
+					a.type_, a.scanner_id_, a.model_number_, a.serial_number_, a.guid_, a.vid_, a.pid_, a.dom_, a.firmware_
 				);
 			});
 
@@ -235,13 +235,13 @@ void CoreScanner::ParseScannerFromXml(const pugi::xml_node& scanner) {
 	auto s = std::make_shared<Scanner>(scanner_interface_);
 	s->type_ = scanner.attribute(L"type").value();
 	s->scanner_id_ = scanner_id;
+	s->model_number_ = scanner.child_value(L"modelnumber");
 	s->serial_number_ = scanner.child_value(L"serialnumber");
 	s->guid_ = scanner.child_value(L"GUID");
-	s->pid_ = scanner.child_value(L"PID");
 	s->vid_ = scanner.child_value(L"VID");
-	s->model_number_ = scanner.child_value(L"modelnumber");
-	s->firmware_ = scanner.child_value(L"firmware");
+	s->pid_ = scanner.child_value(L"PID");
 	s->dom_ = scanner.child_value(L"DoM");
+	s->firmware_ = scanner.child_value(L"firmware");
 	s->TrimProperties();
 
 	scanners_[scanner_id] = s;
@@ -323,8 +323,8 @@ void CoreScanner::OnPNPEvent(SHORT event_type, BSTR pnp_xml)
 			s->model_number_ = scanner.child_value(L"modelnumber");
 
 			auto rsm_attrs = s->FetchAttributes(L"535,20004");
-			s->firmware_ = rsm_attrs[0]->value_.cast<wstring>();
 			s->dom_ = rsm_attrs[0]->value_.cast<wstring>();
+			s->firmware_ = rsm_attrs[1]->value_.cast<wstring>();
 
 			s->TrimProperties();
 			scanners_[scanner_id] = s;
