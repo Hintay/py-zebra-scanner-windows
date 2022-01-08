@@ -196,8 +196,8 @@ void CoreScanner::OnScannerRemovedDecorator(py::object& obj)
 
 void CoreScanner::OnScannerAdded(std::shared_ptr<Scanner>& scanner) {
 	py::gil_scoped_acquire acquire;
+	auto o = py::cast(scanner);
 	for (auto& callback: on_scanner_added_) {
-		auto o = py::cast(scanner);
 		call_python(callback, o, false);
 	}
 }
@@ -205,8 +205,8 @@ void CoreScanner::OnScannerAdded(std::shared_ptr<Scanner>& scanner) {
 void CoreScanner::OnScannerRemoved(std::shared_ptr<Scanner>& scanner)
 {
 	py::gil_scoped_acquire acquire;
+	auto o = py::cast(scanner);
 	for (auto& callback : on_scanner_removed_) {
-		auto o = py::cast(scanner);
 		call_python(callback, o, false);
 	}
 }
@@ -325,19 +325,20 @@ void CoreScanner::OnPNPEvent(SHORT event_type, BSTR pnp_xml)
 			auto rsm_attrs = s->FetchAttributes(L"535,20004");
 			s->dom_ = rsm_attrs[0]->value_.cast<wstring>();
 			s->firmware_ = rsm_attrs[1]->value_.cast<wstring>();
-
 			s->TrimProperties();
+
 			scanners_[scanner_id] = s;
 			OnScannerAdded(s);
 		}
 		else if (event_type == SCANNER_DETACHED)
 		{
-			auto s = scanners_[scanner_id];
 			// For BT Scanners.
 			if (wcsncmp(scanner.child_value(L"pnp"), L"0", 1) == 0)
 				continue;
-			OnScannerRemoved(s);
+
+			auto s = scanners_[scanner_id];
 			scanners_.erase(scanner_id);
+			OnScannerRemoved(s);
 		}
 	}
 }

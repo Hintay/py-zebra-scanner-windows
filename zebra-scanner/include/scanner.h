@@ -18,6 +18,11 @@ class Scanner final
 {
 public:
 	explicit Scanner(CComQIPtr<ICoreScanner> scanner_interface): scanner_interface_(scanner_interface) {}
+	~Scanner()
+	{
+		py::gil_scoped_acquire acquire;
+		on_barcode_.clear();
+	}
 
 	std::wstring type_;
 	int scanner_id_ = -1;
