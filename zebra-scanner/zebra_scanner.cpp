@@ -17,7 +17,7 @@
 using namespace std;
 
 template<class C>
-wchar_t* repr_wchar(C& object, ssize_t* size = nullptr)
+wchar_t* repr_wchar(C& object, Py_ssize_t* size = nullptr)
 {
 	return PyUnicode_AsWideCharString(py::repr(object).ptr(), size);
 }
