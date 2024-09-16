@@ -1,0 +1,31 @@
+[build-system]
+requires = ["scikit-build-core", "pybind11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "zebra-scanner"
+version = "1.0.1"
+requires-python = ">= 3.8"
+authors = [
+    {name = "Hintay", email = "hintay@me.com"}
+]
+description = "Scan barcodes in python with Zebra Scanner for Windows"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Hardware :: Hardware Drivers",
+    "Topic :: System :: Hardware :: Scanners"
+]
+
+[project.urls]
+Repository = "https://github.com/Hintay/py-zebra-scanner-windows.git"
+Issues = "https://github.com/Hintay/issues"
