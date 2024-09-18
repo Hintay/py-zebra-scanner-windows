@@ -8,7 +8,7 @@
 #include <pybind11/pytypes.h>
 #include <pybind11/stl.h>
 
-#import "libid:DB07B9FC-18B0-4B55-9A44-31D2C2F87875" no_namespace named_guids
+#import <_CoreScanner.tlb> no_namespace named_guids
 
 
 class Scanner;
