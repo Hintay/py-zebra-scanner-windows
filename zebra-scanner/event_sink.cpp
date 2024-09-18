@@ -3,8 +3,6 @@
 #include <atlsafe.h>
 #include <iostream>
 
-#import "libid:DB07B9FC-18B0-4B55-9A44-31D2C2F87875" no_namespace named_guids
-
 using namespace std;
 
 _ATL_FUNC_INFO OnImageEventInfo = { CC_STDCALL, VT_EMPTY, 5,

@@ -1,7 +1,7 @@
 #include "scanner.h"
 #include "attribute.h"
 #include "call_python.h"
-#include "pugixml.hpp"
+#include <pugixml.hpp>
 
 using namespace std;
 

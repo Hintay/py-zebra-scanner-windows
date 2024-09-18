@@ -3,7 +3,7 @@ requires = ["scikit-build-core", "pybind11"]
 build-backend = "scikit_build_core.build"
 
 [project]
-name = "zebra-scanner"
+name = "zebra-scanner-windows"
 version = "1.0.1"
 requires-python = ">= 3.8"
 authors = [
@@ -29,3 +29,7 @@ classifiers = [
 [project.urls]
 Repository = "https://github.com/Hintay/py-zebra-scanner-windows.git"
 Issues = "https://github.com/Hintay/issues"
+
+[tool.scikit-build]
+wheel.packages = []
+wheel.license-files = ["LICENSE"]

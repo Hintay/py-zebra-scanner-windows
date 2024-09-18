@@ -386,3 +386,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# scikit-build
+dist/
+x64/
+x32/
+build/
