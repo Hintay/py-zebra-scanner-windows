@@ -31,5 +31,4 @@ Repository = "https://github.com/Hintay/py-zebra-scanner-windows.git"
 Issues = "https://github.com/Hintay/issues"
 
 [tool.scikit-build]
-wheel.packages = []
 wheel.license-files = ["LICENSE"]

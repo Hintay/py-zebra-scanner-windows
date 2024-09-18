@@ -10,7 +10,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_definitions(-DUNICODE -D_UNICODE)
 
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
-set(PUGIXML_WCHAR_MODE ON)
+set(PUGIXML_WCHAR_MODE ON CACHE INTERNAL "Enable wchar_t mode")
+set(PUGIXML_INSTALL OFF CACHE INTERNAL "Disable pugixml installation rules")
+set(FMT_INSTALL OFF CACHE INTERNAL "Disable {fmt} installation rules")
 
 set(PYBIND11_FINDPYTHON ON)
 find_package(pybind11 CONFIG REQUIRED)
@@ -29,7 +31,7 @@ FetchContent_Declare(
 FetchContent_Declare(
         pugixml
         GIT_REPOSITORY https://github.com/zeux/pugixml
-        GIT_TAG        db78afc2b7d8f043b4bc6b185635d949ea2ed2a8)  # 1.14
+        GIT_TAG        3b17184379fcaaeb7f1fbe08018b7fedf2640b3b)  # 1.14+ with installation rules
 
 FetchContent_Declare(
         magic_enum
@@ -79,3 +81,4 @@ target_compile_definitions(zebra_scanner PUBLIC $<$<BOOL:${PUGIXML_WCHAR_MODE}>:
 target_link_libraries(zebra_scanner PRIVATE CoreScanner fmt::fmt pugixml::pugixml magic_enum::magic_enum)
 
 install(TARGETS zebra_scanner LIBRARY DESTINATION .)
+install(FILES "${PROJECT_SOURCE_DIR}/zebra_scanner.pyi" DESTINATION .)
