@@ -1,7 +1,12 @@
 # Zebra Scanner Python Extension for Windows
-This is Windows version of Zebra Scanner python extension. 
+This is the Windows version of Zebra Scanner python extension. 
 
-For the original Linux version, see https://github.com/dayjaby/zebra-scanner
+For the original Linux version, see: https://github.com/dayjaby/zebra-scanner
+
+### Requirements
+
+- [Zebra CoreScanner Driver for Windows](https://www.zebra.cn/us/en/support-downloads/software/developer-tools/scanner-sdk-for-windows.html)
+- Python 3.8+
 
 ### Built With
 
@@ -21,18 +26,30 @@ More boards please check https://www.zebra.cn/us/en/support-downloads/software/d
 - Get, set and store attributes for scanners
 - Barcode scanned decorator
 - Barcode type ID to symbology type supported
-- Barcode symbology types enumeration (Optional, with C++ 17)
+- Barcode symbology types enumeration (optional, with C++ 17)
 - Full `__repr__` supported
 
 **Note:** Scanners added after the `open()` command will have no PID and VID information.
 
-## Building
+## Building and installing
 
 Requirements:
 
-- [Zebra CoreScanner Driver for Windows](https://www.zebra.cn/us/en/support-downloads/software/developer-tools/scanner-sdk-for-windows.html)
-- Visual Studio 2017 or above
+- CMake 3.16 or later (optional if building with pipx)
+- Visual Studio 2017 or later with **ATL support**
 - pybind11 (`pip install pybind11`)
+
+[pipx](https://pipx.pypa.io) allows you to install and run Python applications in isolated environments. You can build this project with it:
+
+```
+pipx run build
+```
+
+Or installing it with:
+
+```
+pip install .
+```
 
 ## A minimal example
 
